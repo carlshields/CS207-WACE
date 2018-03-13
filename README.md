@@ -10,7 +10,7 @@ Repository Contents
 * **/src** - Source code will go here.
 * **/hardware** - Hardware stuff will go here. 
 * **/LICENSE** - The license file.
-* **/README.md** - The file you're reading now. I hope you knew that. 
+* **/README.md** - The file you're reading now, if you didn't already know that. 
 
 Requirements and Materials
 ==========================
