@@ -15,6 +15,9 @@ Repository Contents
 Requirements and Materials
 ==========================
 
+Libraries:
+- requires the 
+
 
 Bill of Materials:
 
@@ -37,3 +40,7 @@ Credits
 =======
 
 Based on this project: https://create.arduino.cc/projecthub/Tittiamo/alarm-clock-f61bad?ref=search&ref_id=alarm
+
+Requires RTC Library by adafruit found here: https://github.com/adafruit/RTClib
+
+Requires LiquidCrystal_I2C by fdebrabander found here: https://github.com/fdebrabander/Arduino-LiquidCrystal-I2C-library
