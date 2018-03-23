@@ -16,7 +16,10 @@ Requirements and Materials
 ==========================
 
 Libraries:
-- requires the 
+
+Requires RTC Library by adafruit found here: https://github.com/adafruit/RTClib
+
+Requires LiquidCrystal_I2C by fdebrabander found here: https://github.com/fdebrabander/Arduino-LiquidCrystal-I2C-library
 
 
 Bill of Materials:
