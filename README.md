@@ -25,7 +25,7 @@ Requires LiquidCrystal_I2C by fdebrabander found here: https://github.com/fdebra
 Bill of Materials:
 
 * Arduino UNO
-* Real Time Clock (RTC) DS1307 or DS3231
+* Real Time Clock (RTC) DS1307
 * Adafruit Standard LCD - 16x2 White on Blue Display LCD 20 x04 with I2C module
 * Buttons
 * LEDs
