@@ -80,7 +80,7 @@ void loop()
   {
    menu=menu+1;
   }
-  if((digitalRead(P2)== LOW)&&(digitalRead(P3)== LOW))                                                                                                                                                                     
+  if((digitalRead(P2)== LOW)&&(digitalRead(P3)== LOW))
   {
     
     DisplaySetHourAll();
