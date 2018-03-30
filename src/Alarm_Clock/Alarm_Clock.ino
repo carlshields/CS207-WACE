@@ -11,7 +11,7 @@ https://create.arduino.cc/projecthub/Tittiamo/alarm-clock-f61bad?ref=search&ref_
 #include <LiquidCrystal_I2C.h>
 
 //************************************//
-LiquidCrystal_I2C lcd(0x27,20,4); // Display  I2C 20 x 4
+LiquidCrystal_I2C lcd(0x27,16,2); // Display  I2C 20 x 4
 RTC_DS1307 RTC;
 
 //************Button*****************//
