@@ -72,6 +72,8 @@ void setup()
  
 void loop()
 { 
+// Uncomment to print the current time from RTC to serial. 
+//  serialPrintNowTime();
 
 // check if you press the SET button and increase the menu index
   if(digitalRead(P1)== LOW) 
@@ -480,4 +482,21 @@ void Alarm(){
      setAll=0;
     }
     delay(200);
+}
+
+void serialPrintNowTime() {
+	DateTime now = RTC.now();
+    
+    Serial.print(now.year(), DEC);
+    Serial.print('/');
+    Serial.print(now.month(), DEC);
+    Serial.print('/');
+    Serial.print(now.day(), DEC);
+    Serial.print(" ");
+    Serial.print(now.hour(), DEC);
+    Serial.print(':');
+    Serial.print(now.minute(), DEC);
+    Serial.print(':');
+    Serial.print(now.second(), DEC);
+    Serial.println();
 }
