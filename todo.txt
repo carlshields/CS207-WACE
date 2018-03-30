@@ -1,0 +1,6 @@
+Todo:
+
+Get LCD working.
+	Backlight works but nothing is displayed. 
+	Unable to get it working using a test circuit on a spare Arduino using sample sketch. 
+	Maybe I soldered the I2C thing wrong? 
