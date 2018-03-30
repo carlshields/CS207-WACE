@@ -1,15 +1,9 @@
 /*
-:Project:Allarm_Clock
-:Author: Tiziano Bianchettin
-:Date: 10/02/2017
-:Revision: 2
-:License: Public Domain
-thanks to:
-  http://arduinoenonsolo.blogspot.it/2012/12/orologio-con-arduino-e-il-ds1307.html
-  http://www.mauroalfieri.it/
-  http://www.danielealberti.it/
-  http://www.maffucci.it/
-  My electronics laboratory professor "Perito Carli"  
+Project: Worst Allarm Clock Ever
+Author: Carl Shields (of modifications to original project)
+Based on "Alarm Clock" by Tiziano Bianchettin
+Original project found here:
+https://create.arduino.cc/projecthub/Tittiamo/alarm-clock-f61bad?ref=search&ref_id=alarm
 */
 //************libraries**************//
 #include <Wire.h>
