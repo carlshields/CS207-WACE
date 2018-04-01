@@ -1,5 +1,2 @@
 Todo:
 
-Get LCD working.
-	Could not get I2C to work for LCD, will need to update hardware diagrams to reflect using LCD directly. 
-	LCD works LiquidCrystal library example sketch. Need to update alarm code to deal with this.

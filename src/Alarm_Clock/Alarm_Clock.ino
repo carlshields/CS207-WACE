@@ -130,8 +130,7 @@ void DisplayDateTime ()
 // We show the current date and time
   DateTime now = RTC.now();
 
-  lcd.setCursor(0, 2);
-  lcd.print("Time : ");
+  lcd.setCursor(0, 0);
   
   if (now.hour()<=9)
   {
@@ -146,14 +145,8 @@ void DisplayDateTime ()
   }
   lcd.print(now.minute(), DEC);
   minupg=now.minute();
-  lcd.print(":");
-  if (now.second()<=9)
-  {
-    lcd.print("0");
-  }
-  lcd.print(now.second(), DEC);
 
-  lcd.setCursor(4, 0);
+  lcd.setCursor(6, 0);
   
   if (now.day()<=9)
   {
@@ -171,11 +164,6 @@ void DisplayDateTime ()
   lcd.print("/");
   lcd.print(now.year(), DEC);
   yearupg=now.year();
- 
-  char DOW[][4]={"Sun","Mon","Tue","Wed","Thu","Fri","Sat"};
-  lcd.setCursor(0, 0); 
-  lcd.print(DOW[now.dayOfTheWeek()]); // if it appears error in the code, enter the code given below
-  //lcd.print(DOW[now.dayOfWeek()]);
 }
 
 void DisplaySetHour()
@@ -415,7 +403,7 @@ void DisplaySetMinuteAll()// Setting the alarm minutes
  delay(200);
 }
 void printAllOn(){
-  lcd.setCursor(0,3);
+  lcd.setCursor(0,2);
   lcd.print("Alarm: ");
 
   
@@ -435,7 +423,7 @@ void printAllOn(){
 }
 
 void printAllOff() {
-  lcd.setCursor(0, 3);
+  lcd.setCursor(0, 2);
   lcd.print("Alarm: Off  ");  
 }
 
@@ -446,7 +434,7 @@ void Alarm(){
   }
   if (setAll==0)
     {
-//     printAllOff();
+     printAllOff();
      noTone (buzzer);
      digitalWrite(LED,LOW);
      }
