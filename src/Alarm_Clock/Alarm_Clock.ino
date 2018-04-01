@@ -8,13 +8,16 @@ https://create.arduino.cc/projecthub/Tittiamo/alarm-clock-f61bad?ref=search&ref_
 //************libraries**************//
 #include <Wire.h>
 #include <RTClib.h>
-#include <LiquidCrystal_I2C.h>
+#include <LiquidCrystal.h>
 
-//************************************//
-LiquidCrystal_I2C lcd(0x27,16,2); // Display  I2C 20 x 4
+//************LCD and RTC***********//
+
+const int rs = 12, en = 11, d4 = 5, d5 = 4, d6 = 3, d7 = 2;
+LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
+
 RTC_DS1307 RTC;
 
-//************Button*****************//
+//************Button****************//
 int P1=6; // Button SET MENU'
 int P2=7; // Button +
 int P3=8; // Button -
@@ -24,7 +27,7 @@ int P4=9; // SWITCH Alarm
 #define LED 13
 #define buzzer 10
 
-//************Variables**************//
+//************Variables*************//
 int hourupg;
 int minupg;
 int yearupg;
@@ -38,10 +41,9 @@ uint8_t alarmHours = 0, alarmMinutes = 0;  // Holds the current alarm time
 
 void setup()
 {
-
-  lcd.begin();
-  lcd.backlight();
+  // REMEMBER THIS: original display was 20 x 4, this might cause problems.
   lcd.clear();
+  lcd.begin(16, 2);
 
   pinMode(P1,INPUT_PULLUP); // https://www.arduino.cc/en/Tutorial/InputPullupSerial
   pinMode(P2,INPUT_PULLUP);
@@ -457,13 +459,11 @@ void Alarm(){
      DateTime now = RTC.now();
      if ( now.hour() == alarmHours && now.minute() == alarmMinutes )
         {
-         lcd.noBacklight();
          DateTime now = RTC.now();
          digitalWrite(LED,HIGH);
          tone(buzzer,880); //play the note "A5" (LA5)
          delay (300);
          tone(buzzer,698); //play the note "F6" (FA5)
-         lcd.backlight();
         }
     else{
          noTone (buzzer);
