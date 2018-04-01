@@ -19,8 +19,8 @@ RTC_DS1307 RTC;
 
 //************Button****************//
 int P1=6; // Button SET MENU'
-int P2=7; // Button +
-int P3=8; // Button -
+int P2=8; // Button +
+int P3=7; // Button -
 int P4=9; // SWITCH Alarm
 
 //**************Alarm***************//
