@@ -51,7 +51,6 @@ void setup()
   pinMode(P4,INPUT_PULLUP);
   pinMode(LED,OUTPUT);
   pinMode(buzzer, OUTPUT); // Set buzzer as an output
-  printAllOff();
   Serial.begin(9600);
   Wire.begin();
   RTC.begin();
@@ -61,7 +60,7 @@ void setup()
     // Set the date and time at compile time
     RTC.adjust(DateTime(__DATE__, __TIME__));
   }
-  // RTC.adjust(DateTime(__DATE__, __TIME__)); //removing "//" to adjust the time
+	//RTC.adjust(DateTime(__DATE__, __TIME__)); //removing "//" to adjust the time
     // The default display shows the date and time
   int menu=0;
 }
@@ -96,7 +95,7 @@ void loop()
     {
      DisplayDateTime(); // void DisplayDateTime
      Alarm(); // Alarm control
-          }
+	}
   if (menu==1)
     {
     DisplaySetHour();
@@ -154,9 +153,8 @@ void DisplayDateTime ()
   }
   lcd.print(now.second(), DEC);
 
+  lcd.setCursor(4, 0);
   
-  lcd.setCursor(0, 1);
-  lcd.print("Date : ");
   if (now.day()<=9)
   {
     lcd.print("0");
@@ -174,9 +172,8 @@ void DisplayDateTime ()
   lcd.print(now.year(), DEC);
   yearupg=now.year();
  
-  char DOW[][10]={"Sunday   ","Monday   ","Tuesday  ","Wednesday","Thursday ","Friday   ","Saturday "};
+  char DOW[][4]={"Sun","Mon","Tue","Wed","Thu","Fri","Sat"};
   lcd.setCursor(0, 0); 
-  lcd.print("Day  : ");
   lcd.print(DOW[now.dayOfTheWeek()]); // if it appears error in the code, enter the code given below
   //lcd.print(DOW[now.dayOfWeek()]);
 }
@@ -209,7 +206,7 @@ void DisplaySetHour()
     }
   }
   lcd.setCursor(0,0);
-  lcd.print("Set time:");
+  lcd.print("Set Hour:");
   lcd.setCursor(0,1);
   lcd.print(hourupg,DEC);
   delay(200);
@@ -343,6 +340,7 @@ void StoreAgg()
   lcd.print("PROGRESS");
   RTC.adjust(DateTime(yearupg,monthupg,dayupg,hourupg,minupg,0));
   delay(200);
+  lcd.clear();
 }
 void DisplaySetHourAll()// Setting the alarm minutes
 {
@@ -417,7 +415,7 @@ void DisplaySetMinuteAll()// Setting the alarm minutes
  delay(200);
 }
 void printAllOn(){
-   lcd.setCursor(0,3);
+  lcd.setCursor(0,3);
   lcd.print("Alarm: ");
 
   
@@ -434,12 +432,13 @@ void printAllOn(){
     lcd.print("0");
   }
   lcd.print(alarmMinutes, DEC); 
-
 }
+
 void printAllOff() {
   lcd.setCursor(0, 3);
   lcd.print("Alarm: Off  ");  
 }
+
 void Alarm(){
    if(digitalRead(P4)== LOW)
   {
@@ -447,7 +446,7 @@ void Alarm(){
   }
   if (setAll==0)
     {
-     printAllOff();
+//     printAllOff();
      noTone (buzzer);
      digitalWrite(LED,LOW);
      }
