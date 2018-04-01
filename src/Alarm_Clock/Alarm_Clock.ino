@@ -456,9 +456,9 @@ void Alarm(){
      printAllOn();    
   
      DateTime now = RTC.now();
+     
      if ( now.hour() == alarmHours && now.minute() == alarmMinutes )
         {
-         DateTime now = RTC.now();
          digitalWrite(LED,HIGH);
          tone(buzzer,880); //play the note "A5" (LA5)
          delay (300);
