@@ -131,7 +131,7 @@ void DisplayDateTime ()
   DateTime now = RTC.now();
 
   lcd.setCursor(0, 2);
-  lcd.print("Hour : ");
+  lcd.print("Time : ");
   
   if (now.hour()<=9)
   {
