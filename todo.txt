@@ -13,3 +13,5 @@ Make alarm setting save confirmation show better formatted time. eg. 9:05 instea
 After alarm time is set automatically turn it on.
 
 Make alarm default to still on after dismissal. 
+
+Change to 12 hour time. 24 hour may make more sense logically but I'm not used to it. 
