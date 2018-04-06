@@ -41,7 +41,6 @@ uint8_t alarmHours = 0, alarmMinutes = 0;  // Holds the current alarm time
 
 void setup()
 {
-  // REMEMBER THIS: original display was 20 x 4, this might cause problems.
   lcd.clear();
   lcd.begin(16, 2);
 
@@ -75,13 +74,14 @@ void loop()
   {
    menu=menu+1;
   }
+  
   if((digitalRead(P2)== LOW)&&(digitalRead(P3)== LOW))
   {
     DisplaySetHourAll();
     DisplaySetMinuteAll();
     lcd.clear();
-    lcd.setCursor(5,0);
-    lcd.print("ALARM");
+    lcd.setCursor(2,0);
+    lcd.print("ALARM SET TO");
     lcd.setCursor(5,1);
     lcd.print(alarmHours, DEC);
     lcd.print(":");
@@ -97,7 +97,7 @@ void loop()
     lcd.clear();
     
     // Automatically turn alarm on after setting it. 
-    setAll++;
+    setAll = 1;
   }
   
 // in which subroutine should we go?
