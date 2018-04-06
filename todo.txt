@@ -6,6 +6,4 @@ Now that it works I need to fulfil my promise of making the Worst Alarm Clock Ev
 
 Must add feature that chooses an alternate time for your alarm whether you like it or not. 
 
-Make alarm default to still on after dismissal. 
-
 Change to 12 hour time. 24 hour may make more sense logically but I'm not used to it. 

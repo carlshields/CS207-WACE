@@ -38,30 +38,32 @@ int setAll = 0;
 
 uint8_t alarmHours = 0, alarmMinutes = 0;  // Holds the current alarm time
 
+bool alarmDismissedWhileSounding = false;
+
 
 void setup()
 {
-  lcd.clear();
-  lcd.begin(16, 2);
+	lcd.clear();
+	lcd.begin(16, 2);
 
-  pinMode(P1,INPUT_PULLUP); // https://www.arduino.cc/en/Tutorial/InputPullupSerial
-  pinMode(P2,INPUT_PULLUP);
-  pinMode(P3,INPUT_PULLUP);
-  pinMode(P4,INPUT_PULLUP);
-  pinMode(LED,OUTPUT);
-  pinMode(buzzer, OUTPUT); // Set buzzer as an output
-  Serial.begin(9600);
-  Wire.begin();
-  RTC.begin();
+	pinMode(P1,INPUT_PULLUP); // https://www.arduino.cc/en/Tutorial/InputPullupSerial
+	pinMode(P2,INPUT_PULLUP);
+	pinMode(P3,INPUT_PULLUP);
+	pinMode(P4,INPUT_PULLUP);
+	pinMode(LED,OUTPUT);
+	pinMode(buzzer, OUTPUT); // Set buzzer as an output
+	Serial.begin(9600);
+	Wire.begin();
+	RTC.begin();
 
-  if (! RTC.isrunning()) {
-    Serial.println("RTC is NOT running!");
-    // Set the date and time at compile time
-    RTC.adjust(DateTime(__DATE__, __TIME__));
-  }
+	if (! RTC.isrunning()) {
+		Serial.println("RTC is NOT running!");
+		// Set the date and time at compile time
+		RTC.adjust(DateTime(__DATE__, __TIME__));
+	}
 	//RTC.adjust(DateTime(__DATE__, __TIME__)); //removing "//" to adjust the time
-    // The default display shows the date and time
-  int menu = 0;
+	// The default display shows the date and time
+	int menu = 0;
 }
  
 void loop()
@@ -436,39 +438,61 @@ void printAllOff() {
 }
 
 void Alarm(){
+
    if(digitalRead(P4) == LOW)
   {
    setAll = setAll + 1;
   }
+  
   if (setAll == 0)
     {
      printAllOff();
      noTone (buzzer);
      digitalWrite(LED,LOW);
      }
+     
   if (setAll == 1)
     {
-
      printAllOn();    
   
      DateTime now = RTC.now();
      
-     if ( now.hour() == alarmHours && now.minute() == alarmMinutes )
+     if ( now.hour() == alarmHours && now.minute() == alarmMinutes && alarmDismissedWhileSounding == false)
         {
-         digitalWrite(LED,HIGH);
-         tone(buzzer,880); //play the note "A5" (LA5)
-         delay (300);
-         tone(buzzer,698); //play the note "F6" (FA5)
+			digitalWrite(LED,HIGH);
+			tone(buzzer,880); //play the note "A5" (LA5)
+			delay (300);
+			tone(buzzer,698); //play the note "F6" (FA5)
+			Serial.println("Alarm sounding");
+        } else if ( now.hour() == alarmHours && now.minute() == alarmMinutes && alarmDismissedWhileSounding == true)
+        {
+			noTone (buzzer);
+			digitalWrite(LED,LOW);
+			Serial.println("Alarm dismissed");	
+        } else {
+			noTone (buzzer);
+			digitalWrite(LED,LOW);
+			alarmDismissedWhileSounding = false;
+			Serial.println("Not alarm time");
         }
-    else{
-         noTone (buzzer);
-         digitalWrite(LED,LOW);
-        }
-    
     } 
-  if (setAll == 2)
+    
+  if (setAll == 2) // if alarm is dismissed while sounding, keep it on, if not turn it off. 
     {
-     setAll = 0;
+    	DateTime now = RTC.now();
+    	
+    	if (now.hour() == alarmHours && now.minute() == alarmMinutes) // in this case we assume alarm was just dismissed
+    	{															  // while sounding and flag as such. 
+    		alarmDismissedWhileSounding = true;
+    		Serial.println("Dismissed changed to true");
+    	}
+    	if (alarmDismissedWhileSounding == true)
+    	{
+    		setAll = 1;
+    	} else
+    	{
+    		setAll = 0;
+    	}
     }
     delay(200);
 }
