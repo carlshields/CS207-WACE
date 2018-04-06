@@ -18,10 +18,10 @@ LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
 RTC_DS1307 RTC;
 
 //************Button****************//
-int P1=6; // Button SET MENU'
-int P2=8; // Button +
-int P3=7; // Button -
-int P4=9; // SWITCH Alarm
+int P1 = 6; // Button SET MENU'
+int P2 = 8; // Button +
+int P3 = 7; // Button -
+int P4 = 9; // SWITCH Alarm
 
 //**************Alarm***************//
 #define LED 13
@@ -33,8 +33,8 @@ int minupg;
 int yearupg;
 int monthupg;
 int dayupg;
-int menu =0;
-int setAll =0;
+int menu = 0;
+int setAll = 0;
 
 uint8_t alarmHours = 0, alarmMinutes = 0;  // Holds the current alarm time
 
@@ -62,7 +62,7 @@ void setup()
   }
 	//RTC.adjust(DateTime(__DATE__, __TIME__)); //removing "//" to adjust the time
     // The default display shows the date and time
-  int menu=0;
+  int menu = 0;
 }
  
 void loop()
@@ -77,7 +77,6 @@ void loop()
   }
   if((digitalRead(P2)== LOW)&&(digitalRead(P3)== LOW))
   {
-    
     DisplaySetHourAll();
     DisplaySetMinuteAll();
     lcd.clear();
@@ -96,34 +95,38 @@ void loop()
     
     delay(1000);
     lcd.clear();
+    
+    // Automatically turn alarm on after setting it. 
+    setAll++;
   }
+  
 // in which subroutine should we go?
-  if (menu==0)
+  if (menu == 0)
     {
      DisplayDateTime(); // void DisplayDateTime
      Alarm(); // Alarm control
 	}
-  if (menu==1)
+  if (menu == 1)
     {
     DisplaySetHour();
     }
-  if (menu==2)
+  if (menu == 2)
     {
     DisplaySetMinute();
     }
-  if (menu==3)
+  if (menu == 3)
     {
     DisplaySetYear();
     }
-  if (menu==4)
+  if (menu == 4)
     {
     DisplaySetMonth();
     }
-  if (menu==5)
+  if (menu == 5)
     {
     DisplaySetDay();
     }
-  if (menu==6)
+  if (menu == 6)
     {
     StoreAgg(); 
     delay(500);
@@ -139,14 +142,14 @@ void DisplayDateTime ()
 
   lcd.setCursor(0, 0);
   
-  if (now.hour()<=9)
+  if (now.hour() <= 9)
   {
     lcd.print("0");
   }
   lcd.print(now.hour(), DEC);
   hourupg=now.hour();
   lcd.print(":");
-  if (now.minute()<=9)
+  if (now.minute() <= 9)
   {
     lcd.print("0");
   }
@@ -155,14 +158,14 @@ void DisplayDateTime ()
 
   lcd.setCursor(6, 0);
   
-  if (now.day()<=9)
+  if (now.day() <= 9)
   {
     lcd.print("0");
   }
   lcd.print(now.day(), DEC);
   dayupg=now.day();
   lcd.print("/");
-  if (now.month()<=9)
+  if (now.month() <= 9)
   {
     lcd.print("0");
   }
@@ -180,24 +183,24 @@ void DisplaySetHour()
   DateTime now = RTC.now();
   if(digitalRead(P2)==LOW)
   {
-    if(hourupg==23)
+    if(hourupg == 23)
     {
-      hourupg=0;
+      hourupg = 0;
     }
     else
     {
-      hourupg=hourupg+1;
+      hourupg = hourupg + 1;
     }
   }
-   if(digitalRead(P3)==LOW)
+   if(digitalRead(P3) == LOW)
   {
-    if(hourupg==0)
+    if(hourupg == 0)
     {
-      hourupg=23;
+      hourupg = 23;
     }
     else
     {
-      hourupg=hourupg-1;
+      hourupg = hourupg - 1;
     }
   }
   lcd.setCursor(0,0);
@@ -211,26 +214,26 @@ void DisplaySetMinute()
 {
 // Setting the minutes
   lcd.clear();
-  if(digitalRead(P2)==LOW)
+  if(digitalRead(P2) == LOW)
   {
-    if (minupg==59)
+    if (minupg == 59)
     {
-      minupg=0;
+      minupg = 0;
     }
     else
     {
-      minupg=minupg+1;
+      minupg = minupg + 1;
     }
   }
-   if(digitalRead(P3)==LOW)
+   if(digitalRead(P3) == LOW)
   {
-    if (minupg==0)
+    if (minupg == 0)
     {
-      minupg=59;
+      minupg = 59;
     }
     else
     {
-      minupg=minupg-1;
+      minupg = minupg - 1;
     }
   }
   lcd.setCursor(0,0);
@@ -244,13 +247,13 @@ void DisplaySetYear()
 {
 // setting the year
   lcd.clear();
-  if(digitalRead(P2)==LOW)
+  if(digitalRead(P2) == LOW)
   {    
-    yearupg=yearupg+1;
+    yearupg = yearupg + 1;
   }
-   if(digitalRead(P3)==LOW)
+   if(digitalRead(P3) == LOW)
   {
-    yearupg=yearupg-1;
+    yearupg = yearupg - 1;
   }
   lcd.setCursor(0,0);
   lcd.print("Set Year:");
@@ -263,26 +266,26 @@ void DisplaySetMonth()
 {
 // Setting the month
   lcd.clear();
-  if(digitalRead(P2)==LOW)
+  if(digitalRead(P2) == LOW)
   {
-    if (monthupg==12)
+    if (monthupg == 12)
     {
-      monthupg=1;
+      monthupg = 1;
     }
     else
     {
-      monthupg=monthupg+1;
+      monthupg = monthupg + 1;
     }
   }
-   if(digitalRead(P3)==LOW)
+   if(digitalRead(P3) == LOW)
   {
-    if (monthupg==1)
+    if (monthupg == 1)
     {
-      monthupg=12;
+      monthupg = 12;
     }
     else
     {
-      monthupg=monthupg-1;
+      monthupg = monthupg - 1;
     }
   }
   lcd.setCursor(0,0);
@@ -296,26 +299,26 @@ void DisplaySetDay()
 {
 // Setting the day
   lcd.clear();
-  if(digitalRead(P2)==LOW)
+  if(digitalRead(P2) == LOW)
   {
-    if (dayupg==31)
+    if (dayupg == 31)
     {
-      dayupg=1;
+      dayupg = 1;
     }
     else
     {
-      dayupg=dayupg+1;
+      dayupg = dayupg + 1;
     }
   }
-   if(digitalRead(P3)==LOW)
+   if(digitalRead(P3) == LOW)
   {
-    if (dayupg==1)
+    if (dayupg == 1)
     {
-      dayupg=31;
+      dayupg = 31;
     }
     else
     {
-      dayupg=dayupg-1;
+      dayupg = dayupg - 1;
     }
   }
   lcd.setCursor(0,0);
@@ -339,30 +342,30 @@ void StoreAgg()
 }
 void DisplaySetHourAll()// Setting the alarm minutes
 {
-  while(digitalRead(P1)==HIGH){
+  while(digitalRead(P1) == HIGH){
 
   lcd.clear();
 
-  if(digitalRead(P2)==LOW)
+  if(digitalRead(P2) == LOW)
   {
-    if(alarmHours==23)
+    if(alarmHours == 23)
     {
-      alarmHours=0;
+      alarmHours = 0;
     }
     else
     {
-      alarmHours=alarmHours+1;
+      alarmHours = alarmHours + 1;
     }
   }
-   if(digitalRead(P3)==LOW)
+   if(digitalRead(P3) == LOW)
   {
-    if(alarmHours==0)
+    if(alarmHours == 0)
     {
-      alarmHours=23;
+      alarmHours = 23;
     }
     else
     {
-      alarmHours=alarmHours-1;
+      alarmHours = alarmHours - 1;
     }
   }
   lcd.setCursor(0,0);
@@ -376,29 +379,29 @@ void DisplaySetHourAll()// Setting the alarm minutes
 
 void DisplaySetMinuteAll()// Setting the alarm minutes
  {
-  while(digitalRead(P1)==HIGH){ 
+  while(digitalRead(P1) == HIGH){ 
 
   lcd.clear();
-  if(digitalRead(P2)==LOW)
+  if(digitalRead(P2) == LOW)
   {
-    if (alarmMinutes==59)
+    if (alarmMinutes == 59)
     {
-      alarmMinutes=0;
+      alarmMinutes = 0;
     }
     else
     {
-      alarmMinutes=alarmMinutes+1;
+      alarmMinutes = alarmMinutes + 1;
     }
   }
-   if(digitalRead(P3)==LOW)
+   if(digitalRead(P3) == LOW)
   {
-    if (alarmMinutes==0)
+    if (alarmMinutes == 0)
     {
-      alarmMinutes=59;
+      alarmMinutes = 59;
     }
     else
     {
-      alarmMinutes=alarmMinutes-1;
+      alarmMinutes = alarmMinutes - 1;
     }
   }
   lcd.setCursor(0,0);
@@ -413,8 +416,6 @@ void printAllOn(){
   lcd.setCursor(0,2);
   lcd.print("Alarm: ");
 
-  
-  
   if (alarmHours <= 9)
   {
     lcd.print("0");
@@ -435,17 +436,17 @@ void printAllOff() {
 }
 
 void Alarm(){
-   if(digitalRead(P4)== LOW)
+   if(digitalRead(P4) == LOW)
   {
-   setAll=setAll+1;
+   setAll = setAll + 1;
   }
-  if (setAll==0)
+  if (setAll == 0)
     {
      printAllOff();
      noTone (buzzer);
      digitalWrite(LED,LOW);
      }
-  if (setAll==1)
+  if (setAll == 1)
     {
 
      printAllOn();    
@@ -465,9 +466,9 @@ void Alarm(){
         }
     
     } 
-  if (setAll==2)
+  if (setAll == 2)
     {
-     setAll=0;
+     setAll = 0;
     }
     delay(200);
 }
