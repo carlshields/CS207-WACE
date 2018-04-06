@@ -86,7 +86,14 @@ void loop()
     lcd.setCursor(5,1);
     lcd.print(alarmHours, DEC);
     lcd.print(":");
-    lcd.print(alarmMinutes, DEC);
+    
+    if (alarmMinutes < 10) {
+    	lcd.print(0);
+    	lcd.print(alarmMinutes, DEC);
+    } else {
+		lcd.print(alarmMinutes, DEC);
+    }
+    
     delay(1000);
     lcd.clear();
   }

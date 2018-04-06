@@ -8,8 +8,6 @@ Must add feature that chooses an alternate time for your alarm whether you like 
 
 Maybe also add a feature that turns on a second alarm instead of turning it off? 
 
-Make alarm setting save confirmation show better formatted time. eg. 9:05 instead of 9:5. 
-
 After alarm time is set automatically turn it on.
 
 Make alarm default to still on after dismissal. 
