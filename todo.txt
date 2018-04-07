@@ -7,4 +7,4 @@ Now that it works I need to fulfil my promise of making the Worst Alarm Clock Ev
 	add feature that insults you instead of turning alarm off
 	add feature that switches to a new, more annoying alarm when alarm is dismissed. 
 
-Change to 12 hour time. 24 hour may make more sense logically but I'm not used to it. 
+ 
