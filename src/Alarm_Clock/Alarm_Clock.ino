@@ -74,7 +74,7 @@ void loop()
 // check if you press the SET button and increase the menu index
   if(digitalRead(P1)== LOW) 
   {
-   menu=menu+1;
+   menu = menu + 1;
   }
   
   if((digitalRead(P2)== LOW)&&(digitalRead(P3)== LOW))
@@ -347,6 +347,7 @@ void StoreAgg()
   delay(200);
   lcd.clear();
 }
+
 void DisplaySetHourAlarm()// Setting the alarm minutes
 {
   while(digitalRead(P1) == HIGH){
@@ -419,6 +420,7 @@ void DisplaySetMinuteAlarm()// Setting the alarm minutes
  }
  delay(200);
 }
+
 void printAlarmOn(){
   lcd.setCursor(0,2);
   lcd.print("Alarm: ");
