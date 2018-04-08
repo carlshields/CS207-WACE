@@ -81,25 +81,7 @@ void loop()
   {
     DisplaySetHourAlarm();
     DisplaySetMinuteAlarm();
-    lcd.clear();
-    lcd.setCursor(2,0);
-    lcd.print("ALARM SET TO");
-    lcd.setCursor(5,1);
-    lcd.print(alarmHours, DEC);
-    lcd.print(":");
-    
-    if (alarmMinutes < 10) {
-    	lcd.print(0);
-    	lcd.print(alarmMinutes, DEC);
-    } else {
-		lcd.print(alarmMinutes, DEC);
-    }
-    
-    delay(1000);
-    lcd.clear();
-    
-    // Automatically turn alarm on after setting it. 
-    setAlarmMode = 1;
+    printSetAlarmConfirmation();
   }
   
 // in which subroutine should we go?
@@ -135,6 +117,29 @@ void loop()
     menu=0;
     }
     delay(100);
+}
+
+void printSetAlarmConfirmation()
+{
+	lcd.clear();
+    lcd.setCursor(2,0);
+    lcd.print("ALARM SET TO");
+    lcd.setCursor(5,1);
+    lcd.print(alarmHours, DEC);
+    lcd.print(":");
+    
+    if (alarmMinutes < 10) {
+    	lcd.print(0);
+    	lcd.print(alarmMinutes, DEC);
+    } else {
+		lcd.print(alarmMinutes, DEC);
+    }
+    
+    delay(1000);
+    lcd.clear();
+    
+    // Automatically turn alarm on after setting it. 
+    setAlarmMode = 1;
 }
 
 void DisplayDateTime ()
