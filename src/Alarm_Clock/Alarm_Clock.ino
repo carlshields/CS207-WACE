@@ -41,6 +41,7 @@ uint8_t alarmHours = 0, alarmMinutes = 0;  // Holds the current alarm time
 bool alarmDismissedWhileSounding = false;
 
 bool isJokeMode = false;
+bool oneCheckForJoke = false;
 
 void setup()
 {
@@ -445,64 +446,95 @@ void printAlarmOff() {
   lcd.print("Alarm: Off  ");  
 }
 
-void Alarm(){
+void Alarm() {
+	// Joke mode cannot be exited once active unless the joke mode itself allows it
+	if((digitalRead(P4) == LOW) && (isJokeMode == false))
+	{
+		setAlarmMode = setAlarmMode + 1;
+	}
+  
+	if (setAlarmMode == 0)
+	{
+		printAlarmOff();
+		noTone (buzzer);
+		digitalWrite(LED,LOW);
+		oneCheckForJoke = false; // reset the check for joke mode
+	}
+     
+	if (setAlarmMode == 1)
+	{
+		if(oneCheckForJoke == false) // check if this is initial run of mode 1
+		{
+			oneCheckForJoke = true;
+			jokeModeSelector(); // decide it it's time to have fun
+		}
+		
+		if (isJokeMode == true)
+		{
+			setAlarmMode = 3;
+		}
 
-   if(digitalRead(P4) == LOW)
-  {
-   setAlarmMode = setAlarmMode + 1;
-  }
-  
-  if (setAlarmMode == 0)
-    {
-     printAlarmOff();
-     noTone (buzzer);
-     digitalWrite(LED,LOW);
-     }
-     
-  if (setAlarmMode == 1)
-    {
-     printAlarmOn();    
-  
-     DateTime now = RTC.now();
-     
-     if ( now.hour() == alarmHours && now.minute() == alarmMinutes && alarmDismissedWhileSounding == false)
-        {
+		printAlarmOn();    
+
+		DateTime now = RTC.now();
+
+		if ( now.hour() == alarmHours && now.minute() == alarmMinutes && alarmDismissedWhileSounding == false)
+		{
 			digitalWrite(LED,HIGH);
 			tone(buzzer,880); //play the note "A5" (LA5)
 			delay (300);
 			tone(buzzer,698); //play the note "F6" (FA5)
 			Serial.println("Alarm sounding");
-        } else if ( now.hour() == alarmHours && now.minute() == alarmMinutes && alarmDismissedWhileSounding == true)
-        {
+		} else if ( now.hour() == alarmHours && now.minute() == alarmMinutes && alarmDismissedWhileSounding == true)
+		{
 			noTone (buzzer);
 			digitalWrite(LED,LOW);
 			Serial.println("Alarm dismissed");	
-        } else {
+		} else 
+		{
 			noTone (buzzer);
 			digitalWrite(LED,LOW);
 			alarmDismissedWhileSounding = false;
-			Serial.println("Not alarm time");
-        }
-    } 
+		}
+	} 
     
-  if (setAlarmMode == 2) // if alarm is dismissed while sounding, keep it on, if not turn it off. 
-    {
-    	DateTime now = RTC.now();
-    	
-    	if (now.hour() == alarmHours && now.minute() == alarmMinutes) // in this case we assume alarm was just dismissed
-    	{															  // while sounding and flag as such. 
-    		alarmDismissedWhileSounding = true;
-    		Serial.println("Dismissed changed to true");
-    	}
-    	if (alarmDismissedWhileSounding == true)
-    	{
-    		setAlarmMode = 1;
-    	} else
-    	{
-    		setAlarmMode = 0;
-    	}
-    }
-    delay(200);
+	if (setAlarmMode == 2) // if alarm is dismissed while sounding, keep it on, if not turn it off. 
+	{
+		DateTime now = RTC.now();
+
+		if (now.hour() == alarmHours && now.minute() == alarmMinutes) // in this case we assume alarm was just dismissed
+		{															  // while sounding and flag as such. 
+			alarmDismissedWhileSounding = true;
+			Serial.println("Dismissed changed to true");
+		}
+		
+		if (alarmDismissedWhileSounding == true)
+		{
+			setAlarmMode = 1;
+		} else
+		{
+			setAlarmMode = 0;
+		}
+	}
+
+	if (setAlarmMode == 3)
+	{
+		Serial.println("Mode 3");
+		lcd.setCursor(0, 0);
+		lcd.print("qwerty");
+		delay(500);
+		if((digitalRead(P4) == LOW) && (isJokeMode == true)) // this joke allows exit any time
+		{
+			lcd.setCursor(0, 1);
+			lcd.print("FINE U NO FUN :(");
+			delay(500);
+			isJokeMode = false;
+			setAlarmMode = 0;
+			lcd.clear();
+		}
+	}
+
+	delay(200);
 }
 
 void serialPrintNowTime() {
@@ -526,14 +558,16 @@ void serialPrintNowTime() {
 
 void jokeModeSelector() 
 {
-	randomSeed(analogRead(A0));
-	int randomNumber = random(3, 101); // random number from 3 to 100 inclusive
-	
-	if ((randomNumber % 2) == 0) // if random number is even
-	{
-		isJokeMode = true;
-	} else // if odd
-	{
-		isJokeMode = false;
-	}
+randomSeed(analogRead(A0));
+int randomNumber = random(3, 101); // random number from 3 to 100 inclusive
+Serial.println(randomNumber);
+if ((randomNumber % 2) == 0) // if random number is even
+{
+	isJokeMode = true;
+	Serial.println("Joke True");
+} else // if odd
+{
+	isJokeMode = false;
+	Serial.println("Joke False");
+}
 }
