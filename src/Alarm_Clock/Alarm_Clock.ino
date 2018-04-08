@@ -1,5 +1,5 @@
 /*
-Project: Worst Allarm Clock Ever
+Project: Worst Alarm Clock Ever
 Author: Carl Shields (of modifications to original project)
 Based on "Alarm Clock" by Tiziano Bianchettin
 Original project found here:
@@ -34,7 +34,7 @@ int yearupg;
 int monthupg;
 int dayupg;
 int menu = 0;
-int setAll = 0;
+int setAlarmMode = 0;
 
 uint8_t alarmHours = 0, alarmMinutes = 0;  // Holds the current alarm time
 
@@ -79,8 +79,8 @@ void loop()
   
   if((digitalRead(P2)== LOW)&&(digitalRead(P3)== LOW))
   {
-    DisplaySetHourAll();
-    DisplaySetMinuteAll();
+    DisplaySetHourAlarm();
+    DisplaySetMinuteAlarm();
     lcd.clear();
     lcd.setCursor(2,0);
     lcd.print("ALARM SET TO");
@@ -99,7 +99,7 @@ void loop()
     lcd.clear();
     
     // Automatically turn alarm on after setting it. 
-    setAll = 1;
+    setAlarmMode = 1;
   }
   
 // in which subroutine should we go?
@@ -342,7 +342,7 @@ void StoreAgg()
   delay(200);
   lcd.clear();
 }
-void DisplaySetHourAll()// Setting the alarm minutes
+void DisplaySetHourAlarm()// Setting the alarm minutes
 {
   while(digitalRead(P1) == HIGH){
 
@@ -379,7 +379,7 @@ void DisplaySetHourAll()// Setting the alarm minutes
  delay(200);
 }
 
-void DisplaySetMinuteAll()// Setting the alarm minutes
+void DisplaySetMinuteAlarm()// Setting the alarm minutes
  {
   while(digitalRead(P1) == HIGH){ 
 
@@ -414,7 +414,7 @@ void DisplaySetMinuteAll()// Setting the alarm minutes
  }
  delay(200);
 }
-void printAllOn(){
+void printAlarmOn(){
   lcd.setCursor(0,2);
   lcd.print("Alarm: ");
 
@@ -432,7 +432,7 @@ void printAllOn(){
   lcd.print(alarmMinutes, DEC); 
 }
 
-void printAllOff() {
+void printAlarmOff() {
   lcd.setCursor(0, 2);
   lcd.print("Alarm: Off  ");  
 }
@@ -441,19 +441,19 @@ void Alarm(){
 
    if(digitalRead(P4) == LOW)
   {
-   setAll = setAll + 1;
+   setAlarmMode = setAlarmMode + 1;
   }
   
-  if (setAll == 0)
+  if (setAlarmMode == 0)
     {
-     printAllOff();
+     printAlarmOff();
      noTone (buzzer);
      digitalWrite(LED,LOW);
      }
      
-  if (setAll == 1)
+  if (setAlarmMode == 1)
     {
-     printAllOn();    
+     printAlarmOn();    
   
      DateTime now = RTC.now();
      
@@ -477,7 +477,7 @@ void Alarm(){
         }
     } 
     
-  if (setAll == 2) // if alarm is dismissed while sounding, keep it on, if not turn it off. 
+  if (setAlarmMode == 2) // if alarm is dismissed while sounding, keep it on, if not turn it off. 
     {
     	DateTime now = RTC.now();
     	
@@ -488,10 +488,10 @@ void Alarm(){
     	}
     	if (alarmDismissedWhileSounding == true)
     	{
-    		setAll = 1;
+    		setAlarmMode = 1;
     	} else
     	{
-    		setAll = 0;
+    		setAlarmMode = 0;
     	}
     }
     delay(200);
