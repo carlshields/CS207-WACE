@@ -468,11 +468,6 @@ void Alarm() {
 			oneCheckForJoke = true;
 			jokeModeSelector(); // decide it it's time to have fun
 		}
-		
-		if (isJokeMode == true)
-		{
-			setAlarmMode = 3;
-		}
 
 		printAlarmOn();    
 
@@ -519,9 +514,8 @@ void Alarm() {
 
 	if (setAlarmMode == 3)
 	{
-		Serial.println("Mode 3");
 		lcd.setCursor(0, 0);
-		lcd.print("qwerty");
+		lcd.print("Joke One");
 		delay(500);
 		if((digitalRead(P4) == LOW) && (isJokeMode == true)) // this joke allows exit any time
 		{
@@ -558,16 +552,42 @@ void serialPrintNowTime() {
 
 void jokeModeSelector() 
 {
-randomSeed(analogRead(A0));
-int randomNumber = random(3, 101); // random number from 3 to 100 inclusive
-Serial.println(randomNumber);
-if ((randomNumber % 2) == 0) // if random number is even
-{
-	isJokeMode = true;
-	Serial.println("Joke True");
-} else // if odd
-{
-	isJokeMode = false;
-	Serial.println("Joke False");
-}
+	randomSeed(analogRead(A0));
+	
+	if ((random(100) % 2) == 0) // if random number is even
+	{
+		isJokeMode = true;
+		Serial.println("Joke True");
+	} else // if odd
+	{
+		isJokeMode = false;
+		Serial.println("Joke False");
+	}
+	
+	int randomNumber = random(3, 6); // random number from 3 to 5 inclusive to determine which joke to use.
+	
+	if (isJokeMode == true)
+	{
+		switch (randomNumber)
+		{
+			case 3:
+			{
+				Serial.println("Joke 1");
+				setAlarmMode = 3;
+			}
+			break;
+			case 4:
+			{
+				Serial.println("Joke 2");
+				isJokeMode = false;
+			}
+			break;
+			case 5:
+			{
+				Serial.println("Joke 3");
+				isJokeMode = false;
+			}
+			break;
+		}
+	}
 }
