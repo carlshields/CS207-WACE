@@ -40,6 +40,7 @@ uint8_t alarmHours = 0, alarmMinutes = 0;  // Holds the current alarm time
 
 bool alarmDismissedWhileSounding = false;
 
+bool isJokeMode = false;
 
 void setup()
 {
@@ -67,7 +68,7 @@ void setup()
 }
  
 void loop()
-{ 
+{
 // Uncomment to print the current time from RTC to serial. 
 //  serialPrintNowTime();
 
@@ -519,4 +520,20 @@ void serialPrintNowTime() {
     Serial.print(':');
     Serial.print(now.second(), DEC);
     Serial.println();
+}
+
+// Joke modes setAlarmMode 3+, cannot be entered with P4. 
+
+void jokeModeSelector() 
+{
+	randomSeed(analogRead(A0));
+	int randomNumber = random(3, 101); // random number from 3 to 100 inclusive
+	
+	if ((randomNumber % 2) == 0) // if random number is even
+	{
+		isJokeMode = true;
+	} else // if odd
+	{
+		isJokeMode = false;
+	}
 }
