@@ -457,7 +457,6 @@ void Alarm() {
 	{
 		isJokeMode = false; // reset joke mode flag
 		oneCheckForJoke = false; // reset the check for joke mode
-		lcd.clear();
 		printAlarmOff();
 		noTone (buzzer);
 		digitalWrite(LED,LOW);
@@ -524,6 +523,7 @@ void Alarm() {
 			lcd.setCursor(0, 1);
 			lcd.print("FINE U NO FUN :(");
 			delay(500);
+			lcd.clear();
 			setAlarmMode = 0; // mode 0 resets joke mode flags
 		}
 	}
