@@ -527,6 +527,35 @@ void Alarm() {
 			setAlarmMode = 0; // mode 0 resets joke mode flags
 		}
 	}
+	
+	if (setAlarmMode == 4)
+	{
+		lcd.clear();
+		lcd.setCursor(0, 0);
+		lcd.print("You No Show");
+		lcd.setCursor(0, 1);
+		lcd.print("Face Tomorrow");
+		delay(2000);
+		
+		lcd.clear();
+		lcd.setCursor(0, 0);
+		lcd.print("No Alarm For You");
+		lcd.setCursor(0, 1);
+		lcd.print("Ugly Face");
+		delay(2000);
+		
+		if((digitalRead(P4) == LOW) && (isJokeMode == true)) // this joke allows exit any time
+		{
+			lcd.clear();
+			lcd.setCursor(0, 0);
+			lcd.print("Your Face");
+			lcd.setCursor(0, 1);
+			lcd.print("Do What U Want");
+			delay(2000);
+			lcd.clear();
+			setAlarmMode = 0; // mode 0 resets joke mode flags
+		}
+	}
 
 	delay(200);
 }
@@ -565,7 +594,8 @@ void jokeModeSelector()
 	}
 	
 	int randomNumber = random(3, 6); // random number from 3 to 5 inclusive to determine which joke to use.
-	
+//	randomNumber = 4;
+//	isJokeMode = true;
 	if (isJokeMode == true)
 	{
 		switch (randomNumber)
@@ -579,7 +609,7 @@ void jokeModeSelector()
 			case 4:
 			{
 				Serial.println("Joke 2");
-				isJokeMode = false;
+				setAlarmMode = 4;
 			}
 			break;
 			case 5:
