@@ -81,7 +81,7 @@ void loop()
    menu = menu + 1;
   }
   
-  if((digitalRead(P2)== LOW)&&(digitalRead(P3)== LOW))
+  if((digitalRead(P2) == LOW)&&(digitalRead(P3) == LOW))
   {
     DisplaySetHourAlarm();
     DisplaySetMinuteAlarm();
@@ -192,7 +192,7 @@ void DisplaySetHour()
 // time setting
   lcd.clear();
   DateTime now = RTC.now();
-  if(digitalRead(P2)==LOW)
+  if(digitalRead(P2) == LOW)
   {
     if(hourupg == 23)
     {
@@ -574,7 +574,7 @@ void Alarm() {
 	{
 		lcd.clear();
 		
-		while (mode5Counter < 300000) // 300000/300 = 1000 5 mins / alarm buzzer tone delay = 1000 cycles for 5 mins
+		while (mode5Counter < 1000) // 300000/300 = 1000 5 mins / alarm buzzer tone delay = 1000 cycles for 5 mins
 		{
 			lcd.setCursor(0, 0);
 			lcd.print("This No End");
@@ -602,7 +602,7 @@ void Alarm() {
 			mode5Counter = 0;
 			lcd.clear();
 			
-			while (mode5Counter < 300000)
+			while (mode5Counter < 1000)
 			{
 				lcd.setCursor(0, 0);
 				lcd.print("I Lied");
@@ -628,6 +628,19 @@ void Alarm() {
 		lcd.print("Lies   or   Lit?");
 		lcd.setCursor(0, 1);
 		lcd.print("1 <- button -> 2");
+		delay(500); // delay to avoid turning alarm on also triggering Lit option
+			
+		if ((digitalRead(P1) == LOW) && (isJokeMode = true)) // lies
+		{
+			Serial.println("Mode 6 Lies");
+			setAlarmMode = 5;
+		}
+		
+		if ((digitalRead(P4) == LOW) && (isJokeMode = true)) // lit
+		{
+			Serial.println("Mode 6 Lit");
+		}
+		
 		delay(3000);
 	}
 

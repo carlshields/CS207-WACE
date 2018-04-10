@@ -4,4 +4,5 @@ Update hardware schematics to match reality.
 
 Now that it works I need to fulfil my promise of making the Worst Alarm Clock Ever. 
 	Must add feature that chooses an alternate time for your alarm whether you like it or not. 
-	add: read long poen or something or mode 5. User chooses. 
+	
+	finish mode 6 lit
