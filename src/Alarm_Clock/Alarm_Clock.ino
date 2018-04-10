@@ -617,6 +617,16 @@ void Alarm() {
 			lcd.clear();
 			setAlarmMode = 0;
 		}
+		
+		if (setAlarmMode == 6)
+		{
+			// 6
+		}
+		
+		if (setAlarmMode == 7)
+		{
+			// 7
+		}
 	}
 
 	delay(200);
@@ -655,7 +665,7 @@ void jokeModeSelector()
 		Serial.println("Joke False");
 	}
 	
-	int randomNumber = random(3, 6); // random number from 3 to 5 inclusive to determine which joke to use.
+	int randomNumber = random(3, 8); // random number from 3 to 5 inclusive to determine which joke to use.
 //	randomNumber = 3;
 //	isJokeMode = true;
 	if (isJokeMode == true)
@@ -664,20 +674,32 @@ void jokeModeSelector()
 		{
 			case 3:
 			{
-				Serial.println("Joke 1");
+				Serial.println("Mode 3");
 				setAlarmMode = 3;
 			}
 			break;
 			case 4:
 			{
-				Serial.println("Joke 2");
+				Serial.println("Mode 4");
 				setAlarmMode = 4;
 			}
 			break;
 			case 5:
 			{
-				Serial.println("Joke 3");
+				Serial.println("Mode 5");
 				setAlarmMode = 5;
+			}
+			break;
+			case 6:
+			{
+				Serial.println("Mode 6");
+				setAlarmMode = 6;
+			}
+			break;
+			case 7:
+			{
+				Serial.println("Mode 7");
+				setAlarmMode = 7;
 			}
 			break;
 		}
