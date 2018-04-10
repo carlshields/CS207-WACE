@@ -611,24 +611,31 @@ void Alarm() {
 				digitalWrite(LED,HIGH);
 				tone(buzzer,880); //play the note "A5" (LA5)
 				delay (300);
-//				tone(buzzer,698); //play the note "F6" (FA5)
+				//tone(buzzer,698); //play the note "F6" (FA5)
 				mode5Counter++;
 			}
 			lcd.clear();
 			setAlarmMode = 0;
 		}
-		
-		if (setAlarmMode == 6)
-		{
-			// 6
-		}
-		
-		if (setAlarmMode == 7)
-		{
-			// 7
-		}
+	}
+	
+	if (setAlarmMode == 6) // choices
+	{
+		digitalWrite(LED, LOW);
+		noTone(buzzer);
+		lcd.clear();
+		lcd.setCursor(0, 0);
+		lcd.print("Lies   or   Lit?");
+		lcd.setCursor(0, 1);
+		lcd.print("1 <- button -> 2");
+		delay(3000);
 	}
 
+	if (setAlarmMode == 7)
+	{
+		// 7
+	}
+	
 	delay(200);
 }
 
@@ -666,8 +673,8 @@ void jokeModeSelector()
 	}
 	
 	int randomNumber = random(3, 8); // random number from 3 to 5 inclusive to determine which joke to use.
-//	randomNumber = 3;
-//	isJokeMode = true;
+	randomNumber = 6;
+	isJokeMode = true;
 	if (isJokeMode == true)
 	{
 		switch (randomNumber)
