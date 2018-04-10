@@ -43,6 +43,8 @@ bool alarmDismissedWhileSounding = false;
 bool isJokeMode = false;
 bool oneCheckForJoke = false;
 
+int mode5Counter = 0;
+
 void setup()
 {
 	lcd.clear();
@@ -513,6 +515,8 @@ void Alarm() {
 		}
 	}
 
+	// modes 3 and up are joke modes
+
 	if (setAlarmMode == 3)
 	{
 		lcd.setCursor(0, 0);
@@ -557,6 +561,55 @@ void Alarm() {
 		}
 	}
 
+	if (setAlarmMode == 5)
+	{
+		lcd.clear();
+		
+		while (mode5Counter < 300000) // 300000/300 = 1000 5 mins / alarm buzzer tone delay = 1000 cycles for 5 mins
+		{
+			lcd.setCursor(0, 0);
+			lcd.print("This No End");
+			lcd.setCursor(0, 1);
+			lcd.print("Five Minutes");
+		
+			digitalWrite(LED,HIGH);
+			tone(buzzer,880); //play the note "A5" (LA5)
+			delay (300);
+			tone(buzzer,698); //play the note "F6" (FA5)
+			
+			mode5Counter++;
+		}
+		
+		digitalWrite(LED, LOW);
+		noTone(buzzer);
+		lcd.clear();
+		lcd.setCursor(0, 0);
+		lcd.print("I'm Done");
+		lcd.setCursor(0, 1);
+		lcd.print("For Now");
+		
+		if ((digitalRead(P4) == LOW) && (isJokeMode = true))
+		{
+			mode5Counter = 0;
+			lcd.clear();
+			
+			while (mode5Counter < 300000)
+			{
+				lcd.setCursor(0, 0);
+				lcd.print("I Lied");
+				lcd.setCursor(0, 1);
+				lcd.print("Round Two! :)");
+				digitalWrite(LED,HIGH);
+				tone(buzzer,880); //play the note "A5" (LA5)
+				delay (300);
+//				tone(buzzer,698); //play the note "F6" (FA5)
+				mode5Counter++;
+			}
+			lcd.clear();
+			setAlarmMode = 0;
+		}
+	}
+
 	delay(200);
 }
 
@@ -594,7 +647,7 @@ void jokeModeSelector()
 	}
 	
 	int randomNumber = random(3, 6); // random number from 3 to 5 inclusive to determine which joke to use.
-//	randomNumber = 4;
+//	randomNumber = 5;
 //	isJokeMode = true;
 	if (isJokeMode == true)
 	{
@@ -615,7 +668,7 @@ void jokeModeSelector()
 			case 5:
 			{
 				Serial.println("Joke 3");
-				isJokeMode = false;
+				setAlarmMode = 5;
 			}
 			break;
 		}
