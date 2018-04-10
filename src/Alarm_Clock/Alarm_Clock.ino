@@ -76,7 +76,7 @@ void loop()
 //  serialPrintNowTime();
 
 // check if you press the SET button and increase the menu index
-  if(digitalRead(P1)== LOW) 
+  if((digitalRead(P1) == LOW) && (isJokeMode == false)) // joke mode 6 uses P1 too
   {
    menu = menu + 1;
   }
@@ -354,7 +354,7 @@ void StoreAgg()
 
 void DisplaySetHourAlarm()// Setting the alarm minutes
 {
-  while(digitalRead(P1) == HIGH){
+  while((digitalRead(P1) == HIGH) && (isJokeMode == false)){ // joke mode 6 uses P1 too
 
   lcd.clear();
 
@@ -391,7 +391,7 @@ void DisplaySetHourAlarm()// Setting the alarm minutes
 
 void DisplaySetMinuteAlarm()// Setting the alarm minutes
  {
-  while(digitalRead(P1) == HIGH){ 
+  while((digitalRead(P1) == HIGH) && (isJokeMode == false)){ // joke mode 6 uses P1 too
 
   lcd.clear();
   if(digitalRead(P2) == LOW)
