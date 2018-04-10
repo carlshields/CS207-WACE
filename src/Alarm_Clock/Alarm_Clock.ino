@@ -472,7 +472,7 @@ void Alarm() {
 			jokeModeSelector(); // decide it it's time to have fun
 		}
 
-		printAlarmOn();    
+		printAlarmOn();
 
 		DateTime now = RTC.now();
 
@@ -517,22 +517,31 @@ void Alarm() {
 
 	// modes 3 and up are joke modes
 
-	if (setAlarmMode == 3)
+	if (setAlarmMode == 3) // Saved by lack of Flamethrower
 	{
+		lcd.clear();
 		lcd.setCursor(0, 0);
-		lcd.print("Joke One");
+		lcd.print("No Flamethrower");
+		lcd.setCursor(0, 1);
+		lcd.print("You have one?");
 		delay(500);
 		if((digitalRead(P4) == LOW) && (isJokeMode == true)) // this joke allows exit any time
 		{
+			lcd.clear();
+			lcd.setCursor(0, 0);
+			lcd.print("No?");
 			lcd.setCursor(0, 1);
 			lcd.print("FINE U NO FUN :(");
-			delay(500);
-			lcd.clear();
-			setAlarmMode = 0; // mode 0 resets joke mode flags
+			if((digitalRead(P4) == LOW) && (isJokeMode == true))
+			{
+				delay(2000);
+				lcd.clear();
+				setAlarmMode = 0; // mode 0 resets joke mode flags
+			}
 		}
 	}
 	
-	if (setAlarmMode == 4)
+	if (setAlarmMode == 4) // Insults
 	{
 		lcd.clear();
 		lcd.setCursor(0, 0);
@@ -561,7 +570,7 @@ void Alarm() {
 		}
 	}
 
-	if (setAlarmMode == 5)
+	if (setAlarmMode == 5) // Unending noise, betrayal. 
 	{
 		lcd.clear();
 		
@@ -647,7 +656,7 @@ void jokeModeSelector()
 	}
 	
 	int randomNumber = random(3, 6); // random number from 3 to 5 inclusive to determine which joke to use.
-//	randomNumber = 5;
+//	randomNumber = 3;
 //	isJokeMode = true;
 	if (isJokeMode == true)
 	{
