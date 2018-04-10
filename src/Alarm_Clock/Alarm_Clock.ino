@@ -639,6 +639,50 @@ void Alarm() {
 		if ((digitalRead(P4) == LOW) && (isJokeMode = true)) // lit
 		{
 			Serial.println("Mode 6 Lit");
+			lcd.clear();
+			lcd.setCursor(0, 0);
+			lcd.print("Once upon a time");
+			lcd.setCursor(0, 1);
+			lcd.print("there was a cat");
+			delay(2000);
+			lcd.clear();
+			lcd.setCursor(0, 0);
+			lcd.print("and a dog who  ");
+			lcd.setCursor(0, 1);
+			lcd.print("ate nothing but");
+			delay(2000);
+			lcd.clear();
+			lcd.setCursor(0, 0);
+			lcd.print("toast and candy");
+			lcd.setCursor(0, 1);
+			lcd.print("they both got");
+			delay(2000);
+			lcd.clear();
+			lcd.setCursor(0, 0);
+			lcd.print("cavities and");
+			lcd.setCursor(0, 1);
+			lcd.print("were malnourished");
+			delay(2000);
+			lcd.clear();
+			lcd.setCursor(0, 0);
+			lcd.print("the good news was");
+			lcd.setCursor(0, 1);
+			lcd.print("they got gym");
+			delay(2000);
+			lcd.clear();
+			lcd.setCursor(0, 0);
+			lcd.print("memberships");
+			lcd.setCursor(0, 1);
+			lcd.print("and made better");
+			delay(2000);
+			lcd.clear();
+			lcd.setCursor(0, 0);
+			lcd.print("decisions");
+			lcd.setCursor(0, 1);
+			lcd.print("The End");
+			delay(2000);
+			lcd.clear();
+			setAlarmMode = 0;
 		}
 		
 		delay(3000);
