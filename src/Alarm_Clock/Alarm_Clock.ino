@@ -42,6 +42,7 @@ bool alarmDismissedWhileSounding = false;
 
 bool isJokeMode = false;
 bool oneCheckForJoke = false;
+bool takeADayOff = false;
 
 int mode5Counter = 0;
 
@@ -478,11 +479,18 @@ void Alarm() {
 
 		if ( now.hour() == alarmHours && now.minute() == alarmMinutes && alarmDismissedWhileSounding == false)
 		{
-			digitalWrite(LED,HIGH);
-			tone(buzzer,880); //play the note "A5" (LA5)
-			delay (300);
-			tone(buzzer,698); //play the note "F6" (FA5)
-			Serial.println("Alarm sounding");
+			if (takeADayOff == false) // only activate alarm if mode 7 was not activated. 
+			{
+				digitalWrite(LED,HIGH);
+				tone(buzzer,880); //play the note "A5" (LA5)
+				delay (300);
+				tone(buzzer,698); //play the note "F6" (FA5)
+				Serial.println("Alarm sounding");
+			} else
+			{
+				Serial.println("mode 7 FTW");
+				setAlarmMode = 2;
+			}
 		} else if ( now.hour() == alarmHours && now.minute() == alarmMinutes && alarmDismissedWhileSounding == true)
 		{
 			noTone (buzzer);
@@ -688,9 +696,11 @@ void Alarm() {
 		delay(3000);
 	}
 
-	if (setAlarmMode == 7)
+	if (setAlarmMode == 7) // take a day off, do not take user tomorrow
 	{
-		// 7
+		takeADayOff = true;
+		oneCheckForJoke = true; // skip joke check in mode 1
+		setAlarmMode = 1;
 	}
 	
 	delay(200);
@@ -730,8 +740,8 @@ void jokeModeSelector()
 	}
 	
 	int randomNumber = random(3, 8); // random number from 3 to 5 inclusive to determine which joke to use.
-	randomNumber = 6;
-	isJokeMode = true;
+//	randomNumber = 7;
+//	isJokeMode = true;
 	if (isJokeMode == true)
 	{
 		switch (randomNumber)

@@ -1,8 +1,3 @@
 Todo:
 
 Update hardware schematics to match reality. 
-
-Now that it works I need to fulfil my promise of making the Worst Alarm Clock Ever. 
-	add mode that lies about alarm being enabled, does not wake user up. 
-	
-	finish mode 6 lit
