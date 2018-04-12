@@ -1,3 +1,0 @@
-Todo:
-
-Update hardware schematics to match reality. 
